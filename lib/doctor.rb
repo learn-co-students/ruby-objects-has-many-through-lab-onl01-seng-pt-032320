@@ -1,31 +1,34 @@
 require 'pry'
 
 class Doctor
-  attr_reader :name
-  attr_accessor :appointments
+
+  attr_accessor :name, :patient, :appointment
 
   @@all = Array.new
 
   def initialize(name)
     @name = name
-    @appointments = appointments
     @@all<<self
   end
 
-  def new_appointment(patient,date)
-    Appointment.new(patient,self,date)
-  end
+
 
   def appointments
-
     Appointment.all.select do |appointment|
       appointment.doctor == self
     end
   end
 
+  def new_appointment(patient,date)
+  new_app = Appointment.new(patient,self,date)
+  end
+
   def patients
-    Appointment.all.select do |app|
-      patient.appointments
+    # Appointment.all.select do |patient|
+    #   patient.appointments
+    # end
+    self.appointments.collect do |appointment|
+      appointment.patient
     end
   end
 
